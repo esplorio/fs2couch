@@ -10,5 +10,6 @@ that does (Erica) requires an Erlang environment on my deployment machine.
 Seems a bit much to deploy a Django application.
 
 So I wrote my own -- `fs2couch` provides a couple of useful functions in the
-`fs2couch` module, as well as a Django management command `sync2couch` (with
-support for Django `settings.py`) that makes deployment easier.
+`fs2couch` module, a command-line script (called, creatively, `fs2couch`), and
+a Django management command `sync2couch` (with support for Django's
+`settings.py`) that makes deployment easier.
