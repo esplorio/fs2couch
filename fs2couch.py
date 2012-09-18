@@ -75,6 +75,8 @@ def _make_request(url, data=None):
     if data:
         req.add_data(json.dumps(data))
         req.add_header('Content-Type', 'application/json')
+        # If there's data, it'll be an HTTP PUT
+        req.get_method = lambda: 'PUT'
     try:
         res = urllib2.urlopen(req)
     except urllib2.HTTPError as e:
