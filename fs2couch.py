@@ -3,6 +3,9 @@
 # vice-versa. Dependent only on the Python (2.6+) standard library.
 
 import os
+import json
+import urllib2
+import socket
 from itertools import ifilter
 
 LANG2EXT = {
