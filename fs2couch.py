@@ -178,5 +178,7 @@ def script_main(input, output):
     else:
         # Output to the filesystem from the given input CouchDB instance
         response = _make_request(input)
+        if response['status_code'] == 404:
+            raise AssertionError("No such design document in %s" % input)
         ddoc = response.get('json', json.loads(response['content']))
         ddoc_to_fs(ddoc, output)
