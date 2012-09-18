@@ -126,7 +126,7 @@ def fs_to_ddoc(path):
     for dirpath, dirnames, filenames in os.walk(path):
         if not filenames:
             continue
-        keys = dirpath[len(path):].split('/')
+        keys = dirpath[len(path):].split(os.sep)
         subdoc = ddoc
         for k in keys:
             if k == '':
