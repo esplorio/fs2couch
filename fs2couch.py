@@ -19,8 +19,8 @@ EXT2LANG = dict((v, k) for k, v in LANG2EXT.items())
 
 class CouchError(AssertionError):
     def __init__(self, response):
-        status = getattr(response, 'status_code', None)
-        reason = getattr(response, 'reason', None)
+        status = response.get('status_code', None)
+        reason = response.get('reason', None)
         msg = "HTTP %d; %s" % (status, reason)
         super(CouchError, self).__init__(msg)
 
@@ -77,13 +77,17 @@ def _make_request(url, data=None):
         req.add_header('Content-Type', 'application/json')
     try:
         res = urllib2.urlopen(req)
-    except urllib2.HTTPError:
-
+    except urllib2.HTTPError as e:
+        res = e
     ret = {
         'status_code': res.getcode(),
         'headers': dict(zip(res.headers.keys(), res.headers.values())),
         'content': res.read(),
     }
+
+    if hasattr(res, 'msg'):
+        ret['reason'] = res.msg
+
     try:
         ret['json'] = json.loads(ret['content'])
     except ValueError:
