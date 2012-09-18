@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 # Helper script to work with CouchDB design documents and the filesystem
 
-import os
 import argparse
-import json
-import urllib2
 
 from fs2couch import fs_to_ddoc, ddoc_to_fs, script_main
 
