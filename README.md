@@ -13,3 +13,10 @@ So I wrote my own -- `fs2couch` provides a couple of useful functions in the
 `fs2couch` module, a command-line script (called, creatively, `fs2couch`), and
 a Django management command `sync2couch` (with support for Django's
 `settings.py`) that makes deployment easier.
+
+### configuration for django
+
+Simply add `fs2couch` to your `INSTALLED_APPS` setting, and the `manage.py`
+command should be available. For even more convenience, you can set the
+`FS2COUCH_INPUT` and `FS2COUCH_OUTPUT` values in `settings.py`, so the command
+can pick those settings up and `manage.py sync2couch` works automagically.
