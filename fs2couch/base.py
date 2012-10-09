@@ -139,7 +139,8 @@ def fs_to_ddoc(path):
                 continue
             name, ext = os.path.splitext(fn)
             if ext not in EXT2LANG:
-                raise ValueError("Unknown file type '%s'" % fn)
+                raise ValueError("Unknown file type '%s' at %s" % (
+                    fn, dirpath))
             if 'language' not in ddoc:
                 ddoc['language'] = EXT2LANG[ext]
             elif EXT2LANG[ext] != ddoc['language']:
