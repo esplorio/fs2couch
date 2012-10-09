@@ -4,8 +4,8 @@ from setuptools import setup
 setup(
     name="fs2couch",
     version="0.1",
-    py_modules=["fs2couch"],
-    scripts=["fs2couch"],
+    packages=["fs2couch"],
+    scripts=["sync2couch"],
     # metadata for upload to PyPI
     author="Rami Chowdhury",
     author_email="rami.chowdhury@gmail.com",
