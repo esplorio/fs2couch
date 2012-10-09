@@ -5,7 +5,6 @@
 import os
 import json
 import urllib2
-import socket
 from itertools import ifilter
 
 LANG2EXT = {
@@ -170,7 +169,8 @@ def script_main(input, output):
         else:
             # It exists. Need to update the document revision, to make sure it
             # 'takes' when we POST it
-            current_ddoc = response.get('json', json.loads(response['content']))
+            current_ddoc = response.get(
+                'json', json.loads(response['content']))
             ddoc['_rev'] = current_ddoc['_rev']
         response = _make_request(url, data=ddoc)
         if response['status_code'] != 201:

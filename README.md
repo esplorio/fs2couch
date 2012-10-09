@@ -18,5 +18,7 @@ a Django management command `sync2couch` (with support for Django's
 
 Simply add `fs2couch` to your `INSTALLED_APPS` setting, and the `manage.py`
 command should be available. For even more convenience, you can set the
-`FS2COUCH_INPUT` and `FS2COUCH_OUTPUT` values in `settings.py`, so the command
-can pick those settings up and `manage.py sync2couch` works automagically.
+`FS2COUCH_INPUT` (for a single design document; `FS2COUCH_INPUT_ROOT` for a
+parent directory that contains all your design documents) and `FS2COUCH_OUTPUT`
+values in `settings.py`, so the command can pick those settings up and
+`manage.py sync2couch` works automagically.
