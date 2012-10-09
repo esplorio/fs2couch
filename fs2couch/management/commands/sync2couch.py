@@ -32,8 +32,9 @@ defaults for which can be set in settings.py"""
                 subdirs = os.listdir(input_root)
                 targets = []
                 for sd in subdirs:
-                    if os.path.isdir(os.path.join(input_root, sd)):
-                        targets.append((sd, output))
+                    sd_path = os.path.join(input_root, sd)
+                    if os.path.isdir(sd_path):
+                        targets.append((sd_path, output))
 
         for in_, out in targets:
             script_main(in_, out)
