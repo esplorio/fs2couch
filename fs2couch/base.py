@@ -174,7 +174,7 @@ def script_main(input, output):
                 'json', json.loads(response['content']))
             ddoc['_rev'] = current_ddoc['_rev']
         response = _make_request(url, data=ddoc)
-        if response['status_code'] != 201:
+        if response['status_code'] not in (201, 202):  # 'Accepted' is OK too
             raise CouchError(response)
     else:
         # Output to the filesystem from the given input CouchDB instance
