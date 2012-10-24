@@ -159,6 +159,14 @@ def script_main(input, output):
         url = output
         if not url.endswith('/'):
             url += '/'
+
+        # Check if the database exists in CouchDB
+        response = _make_request(url)
+        if response['status_code'] == 404:
+            # Create it, then
+            _make_request(url, data={'ok': True})  # data actually irrelevant
+
+        # Now on with design documents
         url += ddoc['_id']
 
         # Check if the document exists in CouchDB
