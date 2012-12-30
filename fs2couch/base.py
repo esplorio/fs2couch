@@ -147,7 +147,11 @@ def fs_to_ddoc(path):
                 msg = "'%s' doesn't match design document language (%s)"
                 raise ValueError(msg % (fn, ddoc['language']))
             with open(os.path.join(dirpath, fn), "r") as f:
-                subdoc[name] = f.read()
+                content = f.read()
+                if name == 'options':
+                    # the 'options' key needs to be a JSON object, not a string
+                    content = json.loads(content)
+                subdoc[name] = content
     return ddoc
 
 
