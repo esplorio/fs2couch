@@ -91,7 +91,7 @@ def fs_to_ddoc(path):
             # Couchbase only supports Javascript, no need to fiddle with
             # the 'language' field in the design document
             with open(os.path.join(dirpath, fn), "r") as f:
-                content = f.read()
+                content = f.read().strip()
                 if name == 'options':
                     # the 'options' key needs to be a JSON object, not a string
                     content = json.loads(content)
