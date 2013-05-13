@@ -2,15 +2,15 @@
 from setuptools import setup
 
 setup(
-    name="fs2couch",
+    name="fs2couchbase",
     version="0.1",
-    packages=["fs2couch"],
-    scripts=["sync2couch"],
+    packages=["fs2couchbase"],
+    scripts=["sync2couchbase"],
     # metadata for upload to PyPI
     author="Rami Chowdhury",
-    author_email="rami.chowdhury@gmail.com",
-    description="Push / pull CouchDB design documents from the filesystem",
+    author_email="rami@esplorio.com",
+    description="Push / pull Couchbase design documents from the filesystem",
     license="MIT",
-    keywords="couchdb design tool",
+    keywords="couchbase design tool",
     # could also include long_description, download_url, classifiers, etc.
 )
