@@ -4,7 +4,9 @@ from setuptools import setup
 setup(
     name="fs2couchbase",
     version="0.1",
-    packages=["fs2couchbase"],
+    packages=["fs2couchbase",
+              "fs2couchbase.management",
+              "fs2couchbase.management.commands"],
     scripts=["sync2couchbase"],
     # metadata for upload to PyPI
     author="Rami Chowdhury",
