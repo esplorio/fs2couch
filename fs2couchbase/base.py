@@ -113,7 +113,7 @@ def script_main(input, output, connection=None, ddoc_name=None):
         name = url.split('/', 1)[1]  # URL should be "_design/{name}"
 
         try:
-            response = cb._design(name, body=ddoc, method="PUT")
+            response = cb._design(name, ddoc)
         except exceptions.HTTPError as e:
             raise e
     else:
