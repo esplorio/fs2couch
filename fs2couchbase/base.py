@@ -110,9 +110,10 @@ def script_main(input, output, connection=None, ddoc_name=None):
 
         # Now on with design documents
         url = ddoc.pop('_id')
+        name = url.split('/', 1)[1]  # URL should be "_design/{name}"
 
         try:
-            response = cb.bucket_view(url, body=ddoc, method="PUT")
+            response = cb._design(name, body=ddoc, method="PUT")
         except exceptions.HTTPError as e:
             raise e
     else:
@@ -122,7 +123,7 @@ def script_main(input, output, connection=None, ddoc_name=None):
         if not ddoc_name:
             raise AssertionError("No design document name supplied")
         try:
-            response = cb.bucket_view(ddoc_name, method="GET")
+            response = cb._view(ddoc_name, method="GET")
         except exceptions.HTTPError as e:
             if e.status == 404:
                 raise AssertionError("No such design document in %s" % input)
