@@ -113,7 +113,8 @@ def script_main(input, output, connection=None, ddoc_name=None):
         name = url.split('/', 1)[1]  # URL should be "_design/{name}"
 
         try:
-            response = cb.design_create(name, ddoc)
+            use_devmode = '_design/dev' in input
+            response = cb.design_create(name, ddoc, use_devmode=use_devmode)
         except exceptions.HTTPError as e:
             raise e
     else:
