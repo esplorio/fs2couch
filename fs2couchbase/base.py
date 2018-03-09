@@ -112,23 +112,20 @@ def script_main(input, output, connection=None, ddoc_name=None):
         url = ddoc.pop('_id')
         name = url.split('/', 1)[1]  # URL should be "_design/{name}"
 
-        try:
-            use_devmode = '_design/dev' in input
-            response = cb.design_create(name, ddoc, use_devmode=use_devmode)
-        except exceptions.HTTPError as e:
-            raise e
+        print 'Creating design doc:', name
+        use_devmode = '_design/dev' in input
+        response = cb.design_create(name, ddoc, use_devmode=use_devmode)
+        print 'Design doc', name, 'creation result:', response.value
     else:
         # Output to the filesystem from the given input Couchbase instance and
         # the design document name
         cb = connection or Couchbase.connect(**input)
         if not ddoc_name:
-            raise AssertionError("No design document name supplied")
-        try:
-            response = cb.design_get(ddoc_name, method="GET")
-        except exceptions.HTTPError as e:
-            if e.status == 404:
-                raise AssertionError("No such design document in %s" % input)
-            else:
-                raise
+            raise AssertionError('No design document name supplied')
+
+        print 'Fetching design doc:', ddoc_name
+        response = cb.design_get(ddoc_name, method='GET')
+        print 'Design doc', ddoc_name, 'fetch result:', response.value
+
         ddoc = response
         ddoc_to_fs(ddoc, output)
