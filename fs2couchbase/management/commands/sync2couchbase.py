@@ -33,7 +33,7 @@ defaults for which can be set in settings.py"""
             if not buckets:
                 raise ValueError('settings.COUCHBASE_BUCKETS is not available. Aborting...')
 
-            for design_doc, app_label in design_docs_labels:
+            for design_doc, app_label in design_docs_labels.iteritems():
                 subdirs = os.listdir(input_root)
                 for sd in subdirs:
                     if sd == design_doc:
