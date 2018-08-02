@@ -24,27 +24,28 @@ defaults for which can be set in settings.py"""
         if not input_root:
             raise ImproperlyConfigured('fs2couchbase needs input & output targets!')
         else:
-            design_docs_labels = getattr(settings, 'COUCHBASE_DESIGN_DOC_LABELS', None)
-            if not design_docs_labels:
-                raise ValueError('Design docs must be mapped to app labels using '
-                                 'settings.COUCHBASE_DESIGN_DOC_LABELS. Aborting...')
-
             buckets = getattr(settings, 'COUCHBASE_BUCKETS', None)
             if not buckets:
                 raise ValueError('settings.COUCHBASE_BUCKETS is not available. Aborting...')
 
-            for design_doc, app_label in design_docs_labels.iteritems():
-                subdirs = os.listdir(input_root)
-                for sd in subdirs:
-                    if sd == design_doc:
-                        # Always check if the design doc matches up with the subdirectory found
-                        sd_path = os.path.join(input_root, sd)
-                        if os.path.isdir(sd_path):
-                            # The output can be obtained by using the corresponding app label
-                            output = buckets[app_label]
-                            connection = Couchbase.connect(**output)
-                            # Now populate the sync target
-                            targets.append((sd_path, output, connection))
+            # The first level contains app_labels
+            app_labels = os.listdir(input_root)
+
+            # Each app_label will map to a set of design docs under its subdirectory and
+            # bucket connection config in COUCHBASE_BUCKETS
+            for app_label in app_labels:
+                # Get the connection config
+                output = buckets[app_label]
+                # Then go through the design docs to sync
+                app_label_path = os.path.join(input_root, app_label)
+                design_doc_dirs = os.listdir(app_label_path)
+                for design_doc_dir in design_doc_dirs:
+                    sd_path = os.path.join(app_label_path, design_doc_dir)
+                    if os.path.isdir(sd_path):
+                        # Set up the connection
+                        connection = Couchbase.connect(**output)
+                        # Now populate the sync target
+                        targets.append((sd_path, output, connection))
 
         for arguments in targets:
             script_main(*arguments)
