@@ -26,7 +26,8 @@ defaults for which can be set in settings.py"""
         else:
             design_docs_labels = getattr(settings, 'COUCHBASE_DESIGN_DOC_LABELS', None)
             if not design_docs_labels:
-                raise ValueError('Design docs must be mapped to app labels using settings.COUCHBASE_DESIGN_DOC_LABELS. Aborting...')
+                raise ValueError('Design docs must be mapped to app labels using '
+                                 'settings.COUCHBASE_DESIGN_DOC_LABELS. Aborting...')
 
             buckets = getattr(settings, 'COUCHBASE_BUCKETS', None)
             if not buckets:
