@@ -112,7 +112,7 @@ def script_main(input, output, connection=None, ddoc_name=None):
         url = ddoc.pop('_id')
         name = url.split('/', 1)[1]  # URL should be "_design/{name}"
 
-        print 'Creating design doc:', name
+        print 'Creating design doc:', name, 'on bucket', output['bucket']
         use_devmode = '_design/dev' in input
         response = cb.design_create(name, ddoc, use_devmode=use_devmode)
         print 'Design doc', name, 'creation result:', response.value
