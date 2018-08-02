@@ -35,7 +35,10 @@ defaults for which can be set in settings.py"""
             # bucket connection config in COUCHBASE_BUCKETS
             for app_label in app_labels:
                 # Get the connection config
-                output = buckets[app_label]
+                output = buckets.get(app_label)
+                if not output:
+                    # Skip if output is not found
+                    continue
                 # Then go through the design docs to sync
                 app_label_path = os.path.join(input_root, app_label)
                 design_doc_dirs = os.listdir(app_label_path)
